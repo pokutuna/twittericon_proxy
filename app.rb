@@ -73,9 +73,9 @@ __END__
   %h1 twitter icon
   twitterのscreen_nameからiconのurlを取得します
 %section
-  %h3 つかいかた: http://#{request.env["HTTP_HOST"]}/screen_name/&lt;screen_name&gt?size=&lt;normal|bigger|mini|orig&gt;
+  %h3 つかいかた: http://twicon.pokutuna.com/screen_name/&lt;screen_name&gt?size=&lt;normal|bigger|mini|orig&gt;
   %h4 Example.
-  - base = "http://#{request.host}/screen_name/pokutuna"
+  - base = "http://twicon.pokutuna.com/screen_name/pokutuna"
   デフォルト(normal)
   %a{:href => "#{base}"} #{base}
   %img{:src => "#{base}"}
