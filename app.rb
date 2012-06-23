@@ -25,7 +25,8 @@ get '/' do
   haml :index
 end
 
-get '/screen_name/:name' do
+get '/:name' do
+  redirect('/') if params[:name] == 'favicon.ico'
   begin
     name = params[:name]
     last_data = DB[:icons].first(:screen_name => name)
@@ -73,9 +74,9 @@ __END__
   %h1 twitter icon
   twitterのscreen_nameからiconのurlを取得します
 %section
-  %h3 つかいかた: http://twicon.pokutuna.com/screen_name/&lt;screen_name&gt?size=&lt;normal|bigger|mini|orig&gt;
+  %h3 つかいかた: http://twicon.pokutuna.com/&lt;screen_name&gt?size=&lt;normal|bigger|mini|orig&gt;
   %h4 Example.
-  - base = "http://twicon.pokutuna.com/screen_name/pokutuna"
+  - base = "http://twicon.pokutuna.com/pokutuna"
   デフォルト(normal)
   %a{:href => "#{base}"} #{base}
   %img{:src => "#{base}"}
