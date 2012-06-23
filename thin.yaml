@@ -1,0 +1,7 @@
+timeout: 30
+environment: production
+log: log/thin.log
+servers: 1
+daemonize: true
+rackup: config.ru
+port: 9797
