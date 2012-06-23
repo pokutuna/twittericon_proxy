@@ -8,7 +8,7 @@ require 'nokogiri'
 require 'logger'
 
 CACHE_SEC = 600
-DB = Sequel.sqlite('./db/icons.db', :loggers => [Logger.new($stdout)])
+DB = Sequel.sqlite('./db/icons.db')
 
 def user_data(screen_name)
   url = "http://twitter.com/users/show/#{screen_name}.xml"
@@ -75,7 +75,7 @@ __END__
 %section
   %h3 つかいかた: http://#{request.env["HTTP_HOST"]}/screen_name/&lt;screen_name&gt?size=&lt;normal|bigger|mini|orig&gt;
   %h4 Example.
-  - base = "http://#{request.env["HTTP_HOST"]}/screen_name/pokutuna"
+  - base = "http://#{request.host}/screen_name/pokutuna"
   デフォルト(normal)
   %a{:href => "#{base}"} #{base}
   %img{:src => "#{base}"}
@@ -99,5 +99,6 @@ __END__
   %img{:src => "#{url}"}
   %br
 
+%br
 %footer
   %a{:href => 'https://github.com/pokutuna/twittericon_proxy'} Github pokutuna/twittericon_proxy
