@@ -20,13 +20,16 @@ def user_data(screen_name)
   }
 end
 
+before do
+  cache_control :public, :must_revalidate, :max_age => CACHE_SEC
+end
 
 get '/' do
   haml :index
 end
 
 get '/:name' do
-  redirect('/') if params[:name] == 'favicon.ico'
+  redirect('/', 301) if params[:name] == 'favicon.ico'
   begin
     name = params[:name]
     last_data = DB[:icons].first(:screen_name => name)
@@ -42,11 +45,11 @@ get '/:name' do
     end
 
     if params[:size].nil?
-      redirect(data[:icon_url])
+      redirect(data[:icon_url], 302)
     elsif params[:size] =~ /^orig/
-      redirect(data[:icon_url].gsub(/_normal(\.[^.]+?)/, '\1'))
+      redirect(data[:icon_url].gsub(/_normal(\.[^.]+?)/, '\1'), 302)
     else
-      redirect(data[:icon_url].gsub(/normal(\.[^.]+?)/, params[:size] + '\1'))
+      redirect(data[:icon_url].gsub(/normal(\.[^.]+?)/, params[:size] + '\1'), 302)
     end
 
   rescue
@@ -56,7 +59,7 @@ get '/:name' do
 end
 
 not_found do
-  redirect(request.url[0...request.url.rindex(request.path)] + '/error.png')
+  redirect(request.url[0...request.url.rindex(request.path)] + '/error.png', 302)
 end
 
 __END__
