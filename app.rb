@@ -22,6 +22,7 @@ end
 
 before do
   cache_control :public, :must_revalidate, :max_age => CACHE_SEC
+  expires CACHE_SEC, :public, :must_revalidate
 end
 
 get '/' do
